@@ -61,7 +61,7 @@ $usersToEmail      = New-Object System.Collections.Generic.List[System.Object]
 # Refine Expiry to a DayofYear for easy comparison
 foreach ($user in $users)
 {
-    $userDate      = $user.Expiry
+    $userDate = $user.Expiry
 
     if ($userDate.DayofYear -eq $dateThreshold.DayofYear)
     {
@@ -232,7 +232,13 @@ if ($usersToEmail)
     {
         try 
         {
-            Send-MailMessage -Subject $mailTitle -From $sendFrom -To $expiringUser.mail -SmtpServer $smartHost -body $mailBody -BodyAsHtml -Priority high
+            Send-MailMessage -Subject $mailTitle `
+				 -From $sendFrom `
+				 -To $expiringUser.mail `
+				 -SmtpServer $smartHost `
+				 -body $mailBody ` 
+				 -BodyAsHtml `
+				 -Priority high
             LogWrite " Emailing notification to $($expiringUser.name)"
 
         } catch {
